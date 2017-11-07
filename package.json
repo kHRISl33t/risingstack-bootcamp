@@ -8,7 +8,7 @@
     "dev": "NODE_ENV=development nodemon .",
     "test-web": "NODE_ENV=test PROCESS_TYPE=web mocha 'web/test.setup.js' 'web/**/*.spec.js'",
     "test-models": "NODE_ENV=test mocha 'models/test.setup.js' 'models/**/*.spec.js'",
-    "test-only": "npm run test-web && npm run test-models",
+    "test-only": "mocha 'web/**/*.spec.js'",
     "lint": "eslint .",
     "test": "npm run lint && npm run test-only"
   },
