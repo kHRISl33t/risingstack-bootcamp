@@ -14,9 +14,9 @@ if (args.includes('--local') || args.includes('-L')) {
   process.env.PG_URI = `postgres://${user}:${pw}@localhost:5432/${db}`
 }
 
-dbk.migrate.latest()
+dbk.migrate.rollback()
   .then((response) => {
-    console.log('Successfully migrated', response)
+    console.log('Successfull rollback', response)
   })
   .catch((err) => {
     console.log(err)

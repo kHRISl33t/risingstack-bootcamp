@@ -10,7 +10,9 @@
     "test-models": "NODE_ENV=test mocha 'models/test.setup.js' 'models/**/*.spec.js'",
     "test-only": "npm run test-web && npm run test-models",
     "lint": "eslint .",
-    "test": "npm run lint && npm run test-only"
+    "test": "npm run lint && npm run test-only",
+    "migrate-db": "node scripts/migrate-db.js",
+    "rollback-db": "node scripts/rollback-db.js"
   },
   "repository": "git+https://github.com/RisingStack/risingstack-bootcamp-reference.git",
   "author": "Andras Toth <andras.toth@risingstack.com>",
@@ -43,7 +45,7 @@
   },
   "devDependencies": {
     "chai": "4.0.2",
-    "dotenv": "4.0.0",
+    "dotenv": "^4.0.0",
     "eslint": "4.0.0",
     "eslint-config-airbnb-base": "11.2.0",
     "eslint-plugin-import": "2.3.0",

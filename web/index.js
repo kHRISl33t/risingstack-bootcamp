@@ -1,5 +1,7 @@
 'use strict'
 
+
+require('../models/db/index')
 const { promisify } = require('util')
 const logger = require('winston')
 const config = require('./config')

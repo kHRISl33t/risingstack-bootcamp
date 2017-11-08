@@ -2,6 +2,7 @@
 
 'use strict'
 
+require('dotenv').config()
 const logger = require('winston')
 const semver = require('semver')
 const pkg = require('./package.json')

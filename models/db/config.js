@@ -2,6 +2,7 @@
 
 const joi = require('joi')
 const { parse } = require('pg-connection-string')
+const path = require('path')
 
 const envVarsSchema = joi.object({
   PG_URI: joi.string().uri({ scheme: 'postgres' }).required(),
@@ -31,6 +32,9 @@ const config = {
       }
       : {}
   ),
+  migrations: {
+    directory: path.join(__dirname, './migrations')
+  },
   pool: {
     min: envVars.PG_POOL_MIN,
     max: envVars.PG_POOL_MAX
