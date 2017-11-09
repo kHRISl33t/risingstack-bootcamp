@@ -9,6 +9,8 @@
     "test-web": "NODE_ENV=test PROCESS_TYPE=web mocha 'web/test.setup.js' 'web/**/*.spec.js'",
     "test-models": "NODE_ENV=test mocha 'models/test.setup.js' 'models/**/*.spec.js'",
     "test-only": "npm run test-web && npm run test-models",
+    "migration-test": "NODE_ENV=test mocha 'models/db/dbTableMigration.test.js'",
+    "rollback-test": "NODE_ENV=test mocha 'models/db/dbTableRollback.test.js'",
     "lint": "eslint .",
     "test": "npm run lint && npm run test-only",
     "migrate-db": "node scripts/migrate-db.js",
