@@ -1,5 +1,8 @@
 'use strict'
 
+require('../models/user')
+require('../models/repository')
+require('../models/contribution')
 const { promisify } = require('util')
 const logger = require('winston')
 const config = require('./config')
