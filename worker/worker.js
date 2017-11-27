@@ -1,5 +1,6 @@
 'use strict'
 
+require('dotenv').config()
 const logger = require('winston')
 const redis = require('../models/redis')
 const handlers = require('./handlers')
@@ -19,6 +20,7 @@ async function init() {
   )
 
   await subscriber.on('message', (channel, message) => {
+    // console.log('MESSAGE')
     let messageObject
     try {
       messageObject = JSON.parse(message)
@@ -32,6 +34,24 @@ async function init() {
 
     switch (channel) {
       // TODO
+      // handlers functions
+      case CHANNELS.collect.trigger.v1:
+        handlers.trigger(
+          messageObject
+        )
+        break
+      case CHANNELS.collect.repository.v1:
+        handlers.repository(
+          messageObject
+        )
+        break
+      case CHANNELS.collect.contributions.v1:
+        handlers.contributions(
+          messageObject
+        )
+        // console.log(messageObject)
+        break
+      
       default:
         logger.warn(`Redis message is not handled on channel '${channel}'`, message)
     }

@@ -21,6 +21,7 @@ const publisher = new Redis(config.uri, { lazyConnect: true, dropBufferSupport: 
 const subscriber = new Redis(config.uri, { lazyConnect: true, dropBufferSupport: true })
 
 function publishObject(channel, message) {
+  // console.log('CALLED')
   return publisher.publish(channel, JSON.stringify(message))
 }
 

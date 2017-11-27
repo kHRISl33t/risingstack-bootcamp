@@ -10,9 +10,14 @@
     "test-worker": "NODE_ENV=test PROCESS_TYPE=worker mocha 'worker/test.setup.js' 'worker/**/*.spec.js'",
     "test-models": "NODE_ENV=test mocha 'models/test.setup.js' 'models/**/*.spec.js'",
     "test-only": "npm run test-web && npm run test-worker && npm run test-models",
+    "test-handler-contr": "mocha 'worker/test.setup.js' 'worker/handlers/contributions.spec.js'",
+    "test-handler-repo": "mocha 'worker/test.setup.js' 'worker/handlers/repository.spec.js'",
+    "test-handler-trigger": "mocha 'worker/test.setup.js' 'worker/handlers/trigger.spec.js'",
     "lint": "eslint .",
     "test": "npm run lint && npm run test-only",
-    "migrate-db": "node ./scripts/migrate-db"
+    "migrate-db": "node ./scripts/migrate-db",
+    "job": "node ./jobs/trigger",
+    "trigger": "node ./scripts/trigger --local"
   },
   "repository": "git+https://github.com/RisingStack/risingstack-bootcamp.git",
   "author": "Andras Toth <andras.toth@risingstack.com>",
@@ -39,7 +44,7 @@
     "request": "2.81.0",
     "request-promise-native": "1.0.4",
     "semver": "5.3.0",
-    "sinon": "2.3.6",
+    "sinon": "^2.4.1",
     "sinon-chai": "2.11.0",
     "winston": "2.3.1"
   },

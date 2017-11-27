@@ -245,8 +245,8 @@
   **Make a drawing of the message flow, it will help you a lot!**
 
   Tasks:
-  - [ ] Start Redis locally
-  - [ ] Implement the contributions handler:
+  - [√] Start Redis locally
+  - [√] Implement the contributions handler:
     - The responsibility of the contributions handler is to fetch the contributions of a repository from the GitHub API and to save the contributors and their line counts to the database
     - Validate the `message`, it has two fields: `date` and `repository` with `id` and `full_name` fields
     - Get the contributions from the GitHub API (use your models created in step 2)
