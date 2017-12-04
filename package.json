@@ -10,6 +10,9 @@
     "test-worker": "NODE_ENV=test PROCESS_TYPE=worker mocha 'worker/test.setup.js' 'worker/**/*.spec.js'",
     "test-models": "NODE_ENV=test mocha 'models/test.setup.js' 'models/**/*.spec.js'",
     "test-only": "npm run test-web && npm run test-worker && npm run test-models",
+    "testOne": "NODE_ENV=test PROCESS_TYPE=web mocha 'web/test.setup.js' 'web/router/contribution/*.spec.js'",
+    "testTwo": "NODE_ENV=test PROCESS_TYPE=web mocha 'web/test.setup.js' 'web/router/repository/*.spec.js'",
+    "testThree": "NODE_ENV=test PROCESS_TYPE=web mocha 'web/test.setup.js' 'web/router/trigger/*.spec.js'",
     "lint": "eslint .",
     "test": "npm run lint && npm run test-only",
     "migrate-db": "node ./scripts/migrate-db",
@@ -26,6 +29,7 @@
   },
   "homepage": "https://github.com/RisingStack/risingstack-bootcamp#readme",
   "dependencies": {
+    "chai-http": "^3.0.0",
     "ioredis": "3.1.1",
     "joi": "10.6.0",
     "knex": "0.13.0",

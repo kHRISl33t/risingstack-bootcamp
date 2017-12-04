@@ -10,6 +10,7 @@ function searchRepositories(query = {}) {
     method: 'GET',
     uri: `${API_URL}/search/repositories`,
     headers: {
+      Authorization: 'token 6fcce37c0a4f52c4dcd6cf359e457bf86f9b2fee',
       Accept: 'application/vnd.github.v3+json',
       'User-Agent': USER_AGENT
     },
@@ -23,6 +24,7 @@ function getContributors(repository, query = {}) {
     method: 'GET',
     uri: `${API_URL}/repos/${repository}/stats/contributors`,
     headers: {
+      Authorization: 'token 6fcce37c0a4f52c4dcd6cf359e457bf86f9b2fee',
       Accept: 'application/vnd.github.v3+json',
       'User-Agent': USER_AGENT
     },

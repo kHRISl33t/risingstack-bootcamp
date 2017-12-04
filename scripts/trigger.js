@@ -1,5 +1,6 @@
 'use strict'
 
+require('dotenv').config()
 const joi = require('joi')
 
 const envVarsSchema = joi.object({

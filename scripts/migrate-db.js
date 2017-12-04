@@ -1,5 +1,7 @@
 'use strict'
 
+require('dotenv').config()
+
 const args = process.argv.slice(2)
 if (args.includes('--local') || args.includes('-L')) {
   const user = process.env.PG_USER || process.env.USER || 'root'

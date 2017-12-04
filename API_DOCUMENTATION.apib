@@ -1,74 +1,311 @@
-FORMAT: 1A
+FORMAT: V1
 
-# Polls
+# RisingStack-bootcamp
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+**RisingStack-bootcamp** is a **REST API** which is using the 3rd version of GitHub API to get information of a repository by given ID or owner / name. You can also get the contributions to a certain repository by given ID or owner / name.
 
-## Questions Collection [/questions]
+## How to use the endpoints of the API [/api/v1/]
 
-### List All Questions [GET]
+### /api/v1/repository/:id [GET]
+
+#### Gives back a repository by id
+
++ Parameteres
+    + :id (integer) - ID of the selected repository in the form of an integer
 
 + Response 200 (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                {
-                    "choice": "Swift",
-                    "votes": 2048
-                }, {
-                    "choice": "Python",
-                    "votes": 1024
-                }
-            ]
-        }
-
-### Create a New Question [POST]
-You may create your own question using this action.
-This action takes a JSON payload as part of the request.
-Response then return specific header and body.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
     + Headers
 
-            Location: /questions/1
+            Location: /api/v1/repository/:id
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2014-11-11T08:40:51.620Z",
-                "url": "/questions/1",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "url": "/questions/1/choices/1",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "url": "/questions/1/choices/2",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "url": "/questions/1/choices/3",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "url": "/questions/1/choices/4",
-                        "votes": 0
-                    }
-                ]
+                "id": 94214710,
+                "owner": {
+                    "id": 6916052,
+                    "login": "RisingStack",
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/6916052?v=4",
+                    "html_url": "https://github.com/RisingStack",
+                    "type": "Organization"
+                },
+                "full_name": "RisingStack/risingstack-bootcamp",
+                "description": "This is the Node.js Bootcamp we ask new recruits at RisingStack to finish in their first weeks. It helps to get the basics right, and prepare you to work on enterprise projects.","html_url": "https://github.com/RisingStack/risingstack-bootcamp",
+                "language": "JavaScript",
+                "stargazers_count": 470
+            }
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:id
+
+    + Body
+
+            {
+                "errors": {
+                    "id": [ 
+                        "\"id\" must be a number"
+                    ]
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Headers
+    
+            Location: /api/v1/repository/:id
+        
+    + Body
+
+            {
+                body: "Not Found"
+            }
+
+### /api/v1/repository/:owner/:name [GET]
+#### Gives back a repository by owner and name
+
++ Parameteres
+    + :owner (string) - Owner of the selected repository in the form of a string
+    + :name (string) - Name of the repository in the form of a string
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:owner/:name
+
+    + Body
+
+            {
+                "id": 94214710,
+                "owner": {
+                    "id": 6916052,
+                    "login": "RisingStack",
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/6916052?v=4",
+                    "html_url": "https://github.com/RisingStack",
+                    "type": "Organization"
+                },
+                "full_name": "RisingStack/risingstack-bootcamp",
+                "description": "This is the Node.js Bootcamp we ask new recruits at RisingStack to finish in their first weeks. It helps to get the basics right, and prepare you to work on enterprise projects.","html_url": "https://github.com/RisingStack/risingstack-bootcamp",
+                "language": "JavaScript",
+                "stargazers_count": 470
+            }
+
++ Response 404 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:owner/:name
+
+    + Body
+
+            {
+                body: "Not Found"
+            }
+
+### /api/v1/repository/:id/contributions [GET]
+#### Gives back the contributions to the selected repository by id
+
++ Parameteres
+    + :id (integer) - ID to get the contributions to the selected repository in the form of an integer
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:id/contributions
+
+    + Body
+
+            [
+                {
+                    "user": {
+                        "id": 5305600,
+                        "login": "sasivarnan",
+                        "avatar_url": "https://avatars0.githubusercontent.com/u/5305600?v=4",
+                        "html_url": "https://github.com/sasivarnan",
+                        "type": "User"
+                    },
+                    "repository": {
+                        "id": 94214710,
+                        "owner": 6916052,
+                        "full_name": "RisingStack/risingstack-bootcamp",
+                        "description": "This is the Node.js Bootcamp we ask new recruits at RisingStack to finish in their first weeks. It helps to get the basics right, and prepare you to work on enterprise projects.",
+                        "html_url": "https://github.com/RisingStack/risingstack-bootcamp",
+                        "language": "JavaScript",
+                        "stargazers_count":470},
+                        "line_count":0
+                },
+                {   
+                    "user": {
+                        "id": 9828983,
+                        "login": "DanielPintilei",
+                        "avatar_url": "https://avatars3.githubusercontent.com/u/9828983?v=4",
+                        "html_url": "https://github.com/DanielPintilei",
+                        "type": "User"},
+                    "repository": {
+                        "id": 94214710,
+                        "owner": 6916052,
+                        "full_name": "RisingStack/risingstack-bootcamp",
+                        "description": "This is the Node.js Bootcamp we ask new recruits at RisingStack to finish in their first weeks. It helps to get the basics right, and prepare you to work on enterprise projects.",
+                        "html_url": "https://github.com/RisingStack/risingstack-bootcamp",
+                        "language": "JavaScript",
+                        "stargazers_count": 470},
+                        "line_count": 0
+                }
+            ]
+
++ Response 400 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:id/contributions
+
+    + Body
+
+            {
+                "errors": {
+                    "id": [ 
+                        "\"id\" must be a number"
+                    ]
+                }
+            }
+
++ Response 404 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:owner/:name
+
+    + Body
+
+            {
+                body: "Not Found"
+            }
+
+### /api/v1/repository/:owner/:name/contributions [GET]
+#### Gives back contributions for the selected repository by owner and name
+
++ Parameteres
+    + :owner (string) - Owner of the selected repository to get the contributions in the form of a string
+    + :name (string) - Name of the repository to get the contributions in the form of a string
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:owner/:name/contributions
+
+    + Body
+
+            [
+                {
+                    "user": {
+                        "id": 5305600,
+                        "login": "sasivarnan",
+                        "avatar_url": "https://avatars0.githubusercontent.com/u/5305600?v=4",
+                        "html_url": "https://github.com/sasivarnan",
+                        "type": "User"
+                    },
+                    "repository": {
+                        "id": 94214710,
+                        "owner": 6916052,
+                        "full_name": "RisingStack/risingstack-bootcamp",
+                        "description": "This is the Node.js Bootcamp we ask new recruits at RisingStack to finish in their first weeks. It helps to get the basics right, and prepare you to work on enterprise projects.",
+                        "html_url": "https://github.com/RisingStack/risingstack-bootcamp",
+                        "language": "JavaScript",
+                        "stargazers_count":470},
+                        "line_count":0
+                },
+                {   
+                    "user": {
+                        "id": 9828983,
+                        "login": "DanielPintilei",
+                        "avatar_url": "https://avatars3.githubusercontent.com/u/9828983?v=4",
+                        "html_url": "https://github.com/DanielPintilei",
+                        "type": "User"},
+                    "repository": {
+                        "id": 94214710,
+                        "owner": 6916052,
+                        "full_name": "RisingStack/risingstack-bootcamp",
+                        "description": "This is the Node.js Bootcamp we ask new recruits at RisingStack to finish in their first weeks. It helps to get the basics right, and prepare you to work on enterprise projects.",
+                        "html_url": "https://github.com/RisingStack/risingstack-bootcamp",
+                        "language": "JavaScript",
+                        "stargazers_count": 470},
+                        "line_count": 0
+                }
+            ]
+
++ Response 404 (application/json)
+
+    + Headers
+
+            Location: /api/v1/repository/:owner/:name/contributions
+
+    + Body
+
+            {
+                body: "Not Found"
+            }
+
+### /api/v1/trigger [POST]
+#### Puts the query results to the database and triggers redis channels.
+
++ Parameteres
+    + query object (string) - An object with key as query, and a value as a string. (e.g: language:javascript)
++ to send the trigger use curl
+    + curl -X POST -d query='string' url_address/api/v1/trigger
+
++ Request (application/x-www-form-urlencoded)
+        
+    + Headers
+
+            Location: /api/v1/trigger
+
+    + Body
+
+            {
+                "query": "RisingStack-bootcamp"
+            }
+
++ Response 201
+
+    + Body
+
++ Response 400
+
+    + Body 
+    
+            { 
+                errors: { 
+                    query: [ 
+                        '"query" is not allowed to be empty' 
+                    ] 
+                } 
+            }
+        
++ Response 400
+        
+    + Body 
+    
+            {
+                errors: {
+                    query: [
+                        '"query"' is required'
+                    ]
+                }
+            }
+            
+### /hello [GET]
+#### Prints to page `Hello Node.js!`
+
++ Response 200 
+
+    + Body
+        
+            {
+                body: 'Hello Node.js'
             }
