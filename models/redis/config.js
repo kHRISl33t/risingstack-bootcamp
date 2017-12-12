@@ -10,7 +10,7 @@ const envVarsSchema = joi.object({
 const envVars = joi.attempt(process.env, envVarsSchema)
 
 const config = {
-  uri: envVars.REDIS_URI
+  uri: envVars.REDIS_URI,
 }
 
 module.exports = config

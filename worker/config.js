@@ -3,7 +3,7 @@
 const joi = require('joi')
 
 const envVarsSchema = joi.object({
-  WEB_PORT: joi.number().integer().min(0).max(65535)
+  WORKER_PORT: joi.number().integer().min(0).max(65535)
     .required()
 }).unknown()
   .required()
@@ -11,7 +11,7 @@ const envVarsSchema = joi.object({
 const envVars = joi.attempt(process.env, envVarsSchema)
 
 const config = {
-  port: envVars.WEB_PORT
+  port: envVars.WORKER_PORT
 }
 
 module.exports = config

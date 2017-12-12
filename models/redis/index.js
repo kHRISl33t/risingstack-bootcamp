@@ -17,8 +17,9 @@ const CHANNELS = {
   }
 }
 
-const publisher = new Redis(config.uri, { lazyConnect: true, dropBufferSupport: true })
-const subscriber = new Redis(config.uri, { lazyConnect: true, dropBufferSupport: true })
+// if problem occurs then it might be lazyconnect
+const publisher = new Redis(config.uri, { lazyConnect: true, dropBufferSupport: true, connectTimeout: 1000 })
+const subscriber = new Redis(config.uri, { lazyConnect: true, dropBufferSupport: true, connectTimeout: 1000 })
 
 function publishObject(channel, message) {
   return publisher.publish(channel, JSON.stringify(message))

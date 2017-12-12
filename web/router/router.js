@@ -6,6 +6,7 @@ const middleware = require('../middleware')
 const trigger = require('./trigger')
 const repository = require('./repository')
 const contribution = require('./contribution')
+const healthCheck = require('./healthz')
 
 const router = new Router()
 
@@ -22,5 +23,6 @@ router.get('/api/v1/repository/:id', repository.getById)
 router.get('/api/v1/repository/:id/contributions', contribution.getById)
 router.get('/api/v1/repository/:owner/:name', repository.getByName)
 router.get('/api/v1/repository/:owner/:name/contributions', contribution.getByName)
+router.get('/healthz', healthCheck.healthz)
 
 module.exports = router
