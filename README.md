@@ -100,8 +100,18 @@
   - [ ] Make the tests pass (`npm run test-web`)
   - [ ] Run the application (eg. `PORT=3000 npm start` and try if it breaks when `PORT` is not provided)
 
+  - [ ] Make your .env file in the root folder (that's where you're going to store your environment-specific variables). You can read more about `dotenv` in the reading section below.
+
+  Notes:
+  - Study the index.js file, try to understand the project structure before you start coding
+  - Read the Advanced Node.js Project Structure Tutorial
+  (https://blog.risingstack.com/node-js-project-structure-tutorial-node-js-at-scale/)
+  - Use [`winston`](https://github.com/winstonjs/winston) for logging
+
   Readings:
   - [12 factor - Config](https://12factor.net/config)
+  - [`dotenv`](https://www.npmjs.com/package/dotenv)
+  - [joi](https://github.com/hapijs/joi)
   - [Node `process`](https://nodejs.org/api/process.html)
   - [Koa](http://koajs.com/) web framework
   - [Koa router](https://github.com/alexmingoia/koa-router/tree/master)
@@ -120,12 +130,15 @@
     - `repository` function parameter is a String of the repository full name, including the owner (eg. `RisingStack/cache`)
     - The `query` function parameter is an `Object` of key-value pairs of the request query parameters (defaults to `{}`)
     - It returns a `Promise` of the HTTP response without modification
-  - [ ] Write unit tests for each function, use `nock` to intercept HTTP calls to the GitHub API endpoints
+  - [ ] Write unit tests for each function, use `nock` or `chai-http` to intercept HTTP calls to the GitHub API endpoints
+  
+  Notes:
+  - Use `winston` for logging
 
   Readings:
   - [Github API v3](https://developer.github.com/v3)
   - [`request`](https://www.npmjs.com/package/request-promise) & [`request-promise-native`](https://www.npmjs.com/package/request-promise-native) packages
-  - [`nock`](https://github.com/node-nock/nock) for mocking endpoints
+  - [`nock`](https://github.com/node-nock/nock) or [`chai-http`](https://github.com/chaijs/chai-http) for mocking endpoints
 
   Extra:
   - Use the [Github API v4 - GraphQL API](https://developer.github.com/v4) instead
@@ -179,11 +192,24 @@
     ```sh
     $ npm run migrate-db -- --local
     ```
+  - [ ] Write unit tests for each function
+  - [ ] (Not required, just optional) You can also create a rollback-db script
+
+  Notes:
+  - Use `winston` for logging
+  - brew links
+  - Checking postgres (`brew services ls`) -> listing all services
+    - to start/stop postgres: `brew services start/stop postgres`
+  - Or you can use [LaunchRocket](https://github.com/jimbojsb/launchrocket)
+  - Install [Postico](https://eggerapps.at/postico/) or if you prefer the terminal way you can find some useful commands here [Postgres-cheatsheet](https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546) and [Postgresguide-utilites-psql](http://postgresguide.com/utilities/psql.html)
 
   Readings:
+  - [12 Factor - Config](https://12factor.net/config)
   - [`knex`](http://knexjs.org/) SQL query builder
   - [`knex` migrations API](http://knexjs.org/#Migrations-API)
   - [npm scripts](https://docs.npmjs.com/misc/scripts)
+
+  Recommended tools:
 
 ### 4. Implement helper functions for the database models
 
@@ -230,8 +256,10 @@
         ```
       - Use a **single** SQL query
       - When you join the tables, there will be conflicting column names (`id`, `html_url`). Use the `as` keyword when selecting columns (eg. `repository.id as repository_id`) to avoid this
+    - [ ] Write unit tests for each function
 
   Notes:
+  - Use `winston` for logging
   - `user` is a reserved keyword in PG, use double quotes where you reference the table in a raw query
   - You can get the columns of a table by querying `information_schema.columns`, which can be useful to select fields dinamically when joining tables, eg.:
     ```sql
@@ -266,6 +294,13 @@
   - [ ] We would like to make our first search and data collection from GitHub.
     - For this, create a trigger.js file in the scripts folder. It should be a simple run once Node script which will publish a message to the `trigger` channel with the query passed in as an environment variable (`TRIGGER_QUERY`), then exit. It should have the same `--local`, `-L` flag, but for setting the `REDIS_URI`, as the migrate-db script.
     - Add a `trigger` field to the scripts in `package.json` that calls your `trigger.js` script.
+  - [ ] Write unit tests for each function
+
+  Notes:
+  - Use `winston` for logging
+  - Study the `models/redis/index.js` and `worker/worker.js` for better understanding
+  - Download [iTerm](https://www.iterm2.com/), check the Split Panes feature, it could be useful in the future.
+  - For the testing part you need to get familiar with [stubs](http://sinonjs.org/releases/v4.1.3/stubs/)
 
   Readings:
   - [12 factor - Processes](https://12factor.net/processes)
@@ -289,8 +324,11 @@
     - Response headers (except `authorization` and `cookie`) and body
     - Response status code (based on it: log level should be `error` when server error, `warn` when client error)
   - [ ] Document your API using [Apiary](https://apiary.io/)'s Blueprint format (edit the `API_DOCUMENTATION.apib`).
+  - [ ] Write unit tests for each function
 
   Notes:
+  - Use `winston` for logging
+  - You can use [`curl`](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58) or [`nock`](https://github.com/node-nock/nock) to POST data to `/api/v1/trigger`
   - Make use of [koa-compose](https://github.com/koajs/compose) and the validator middleware
     ```js
     compose([
@@ -325,8 +363,18 @@
     - Add a `healthCheck` function to the redis model
     - Implement the `GET /healthz` endpoint, return `200` with JSON body `{ "status": "ok" }`when everything is healthy, `500` if any of the database or redis connections are not healthy and `503` if the process got `SIGTERM` signal
   - [ ] Create a http server and add a similar health check endpoint for the worker process
+  - [ ] Write unit tests for each function
+
+  Notes:
+  - Use `winston` for logging
 
   Readings:
   - [Signal events](https://nodejs.org/api/process.html#process_signal_events)
   - [Graceful shutdown](https://blog.risingstack.com/graceful-shutdown-node-js-kubernetes/)
   - [Health checks](http://microservices.io/patterns/observability/health-check-api.html)
+
+### 8. User authentication/registration and session creation
+
+
+
+
