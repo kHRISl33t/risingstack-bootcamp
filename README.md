@@ -206,9 +206,15 @@
 
   Recommended tools:
   - [`homebrew`](https://docs.brew.sh/Installation.html)
-  - Checking postgres (`brew services ls`) -> listing all services
-    - to start/stop postgres: `brew services start/stop postgres`
-  - Or you can use [LaunchRocket](https://github.com/jimbojsb/launchrocket)
+  - Checking postgres (listing all services)
+  ```sh
+    $ brew services ls
+  ```
+  - to start/stop postgresql:
+  ```sh
+    $ brew services start/stop postgresql
+  ```
+  - Or you can use a GUI [LaunchRocket](https://github.com/jimbojsb/launchrocket)
   - Install [Postico](https://eggerapps.at/postico/) or if you prefer the terminal way you can find some useful commands here [Postgres-cheatsheet](https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546) and [Postgresguide-utilites-psql](http://postgresguide.com/utilities/psql.html)
 
 ### 4. Implement helper functions for the database models
