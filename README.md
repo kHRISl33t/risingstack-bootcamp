@@ -103,10 +103,10 @@
   - [ ] Make your .env file in the root folder (that's where you're going to store your environment-specific variables). You can read more about `dotenv` in the reading section below.
 
   Notes:
-  - Study the index.js file, try to understand the project structure before you start coding
+  - Use [`winston`](https://github.com/winstonjs/winston) for logging
+  - Study the root index.js file, try to understand the project structure before you start coding
   - Read the Advanced Node.js Project Structure Tutorial
   (https://blog.risingstack.com/node-js-project-structure-tutorial-node-js-at-scale/)
-  - Use [`winston`](https://github.com/winstonjs/winston) for logging
 
   Readings:
   - [12 factor - Config](https://12factor.net/config)
@@ -197,11 +197,6 @@
 
   Notes:
   - Use `winston` for logging
-  - brew links
-  - Checking postgres (`brew services ls`) -> listing all services
-    - to start/stop postgres: `brew services start/stop postgres`
-  - Or you can use [LaunchRocket](https://github.com/jimbojsb/launchrocket)
-  - Install [Postico](https://eggerapps.at/postico/) or if you prefer the terminal way you can find some useful commands here [Postgres-cheatsheet](https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546) and [Postgresguide-utilites-psql](http://postgresguide.com/utilities/psql.html)
 
   Readings:
   - [12 Factor - Config](https://12factor.net/config)
@@ -210,6 +205,11 @@
   - [npm scripts](https://docs.npmjs.com/misc/scripts)
 
   Recommended tools:
+  - [`homebrew`](https://docs.brew.sh/Installation.html)
+  - Checking postgres (`brew services ls`) -> listing all services
+    - to start/stop postgres: `brew services start/stop postgres`
+  - Or you can use [LaunchRocket](https://github.com/jimbojsb/launchrocket)
+  - Install [Postico](https://eggerapps.at/postico/) or if you prefer the terminal way you can find some useful commands here [Postgres-cheatsheet](https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546) and [Postgresguide-utilites-psql](http://postgresguide.com/utilities/psql.html)
 
 ### 4. Implement helper functions for the database models
 
@@ -299,7 +299,6 @@
   Notes:
   - Use `winston` for logging
   - Study the `models/redis/index.js` and `worker/worker.js` for better understanding
-  - Download [iTerm](https://www.iterm2.com/), check the Split Panes feature, it could be useful in the future.
   - For the testing part you need to get familiar with [stubs](http://sinonjs.org/releases/v4.1.3/stubs/)
 
   Readings:
@@ -307,6 +306,10 @@
   - [12 factor - Concurrency](https://12factor.net/concurrency)
   - [Redis pub/sub](https://redis.io/topics/pubsub)
   - [`ioredis`](https://github.com/luin/ioredis)
+  - [`stubs`](http://sinonjs.org/releases/v4.1.3/stubs/)
+
+  Recommended tools:
+  - Download [iTerm](https://www.iterm2.com/), check the Split Panes feature, it could be useful in the future.
 
 ### 6. Implement a REST API
 
@@ -328,7 +331,6 @@
 
   Notes:
   - Use `winston` for logging
-  - You can use [`curl`](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58) or [`nock`](https://github.com/node-nock/nock) to POST data to `/api/v1/trigger`
   - Make use of [koa-compose](https://github.com/koajs/compose) and the validator middleware
     ```js
     compose([
@@ -345,6 +347,9 @@
   - [Pragmatic RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
   - [Koa middleware & cascade](http://koajs.com/)
   - [API Blueprint tutorial](https://help.apiary.io/api_101/api_blueprint_tutorial/)
+
+  Recommended tools:
+  - You can use [`curl`](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58) or [`nock`](https://github.com/node-nock/nock) to POST data to `/api/v1/trigger`
 
 ### 7. Prepare your service for production
 
@@ -374,6 +379,8 @@
   - [Health checks](http://microservices.io/patterns/observability/health-check-api.html)
 
 ### 8. User authentication/registration and session creation
+
+In progress..
 
 
 
