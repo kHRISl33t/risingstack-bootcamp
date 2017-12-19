@@ -402,14 +402,14 @@ Tasks:
   - [ ] Create a database called `risingstack-bootcamp`
     - To get the mongoshell type `mongo` in terminal.
     - If it's not available make sure it's running with `homebrew services ls`
-    - ```sh
+    ```sh
     $ use risingstack-bootcamp
     $ db.createCollection('users')
     ```
     - You will work inside `models/mongodb`, use [Promises](http://mongoosejs.com/docs/promises.html)
       - Connect to mongodb inside `models/mongodb/mongo.js`, use `mongoose`
       - Create the `usersSchema` inside `models/mongodb/usersSchema.js` with the following fields:
-        - ```js
+        ```js
           username: string, 
           password: string, 
           email: string
