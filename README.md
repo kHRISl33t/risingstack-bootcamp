@@ -388,7 +388,7 @@
 
 In this step you are going to create a new process called user-authentication. You will use MongoDB and koa-session.
 
-Follow this tutorial to install mongodb: [`tutorial on OS X`](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
+Follow this tutorial to install mongodb: [`mongo-mac`](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
 
 Useful mongoshell commands:
 ```sh
@@ -408,9 +408,10 @@ Tasks:
     > use risingstack-bootcamp
     > db.createCollection('users')
     ```
-    - You will work inside `models/mongodb`, use [Promises](http://mongoosejs.com/docs/promises.html)
-      - Connect to mongodb inside `models/mongodb/mongo.js`, use `mongoose`
-      - Create the `usersSchema` inside `models/mongodb/usersSchema.js` with the following fields:
+    - You will work inside `models/mongodb`
+      - Connect to mongodb inside `models/mongodb/mongo.js`, use `mongoose` with [Promises](http://mongoosejs.com/docs/promises.html)
+      - Put the mongoUrl inside your .env file, don't use it in your code base
+      - Create the `usersSchema` in `models/mongodb/usersSchema.js` with the following fields:
         ```js
           username: string, 
           password: string, 
