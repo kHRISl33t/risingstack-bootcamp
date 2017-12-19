@@ -104,7 +104,7 @@
 
   Notes:
   - Use [`winston`](https://github.com/winstonjs/winston) for logging
-  - Study the root index.js file, try to understand the project structure before you start coding
+  - Study the root `index.js` file, try to understand the project structure before you start coding
   - Read the Advanced Node.js Project Structure Tutorial
   (https://blog.risingstack.com/node-js-project-structure-tutorial-node-js-at-scale/)
 
@@ -386,7 +386,53 @@
 
 ### 8. User authentication/registration and session creation
 
-In progress..
+In this step you are going to create a new process called user-authentication. You will use MongoDB and koa-session.
+
+Follow this tutorial to install mongodb: [`tutorial on OS X`](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
+
+Useful mongoshell commands:
+  - show dbs -> list out all the dbs
+  - use dbName -> selects a db or creates one if not exists
+  - db.createCollection('nameOfCollection') -> creates a collection with the given name
+  - db.nameOfCollection.find({}) -> gives back all data from the selected collection
+  - db.nameOfCollection.remove({}) -> removes all data from collection
+  - show collections -> shows collections in the selected db
+
+Tasks:
+  - [ ] Create a database called `risingstack-bootcamp`
+    - To get the mongoshell type `mongo` in terminal.
+    - If it's not available make sure it's running with `homebrew services ls`
+    - ```sh
+    $ use risingstack-bootcamp
+    $ db.createCollection('users')
+    ```
+    - You will work inside `models/mongodb`, use [Promises](http://mongoosejs.com/docs/promises.html)
+      - Connect to mongodb inside `models/mongodb/mongo.js`, use `mongoose`
+      - Create the `usersSchema` inside `models/mongodb/usersSchema.js` with the following fields:
+        - ```js
+          username: string, 
+          password: string, 
+          email: string
+        ```
+        - Use `bcrypt` to encrypt the password before insert `usersSchema.pre('save', ...)`
+        - Create a method for password comparison `usersSchema.methods.comparePasswords = ...`
+  - [ ] Create an http server inside `user-authentication`
+    - Create a session with `koa-session`
+  - [ ] Create endpoints
+    - `GET and POST /login`
+    - `GET and POST /logout`
+    - `GET and POST /registration`
+  - [ ] Create handler functions to process the `POST` data for `login`, `logout` and `registration`
+
+Notes: 
+  - Use `winston` for logging
+
+Readings:
+  - [`bcrypt`](https://www.npmjs.com/package/bcrypt)
+  - [`koa-session`](https://github.com/koajs/session)
+  - [`mongoose`](http://mongoosejs.com/docs/)
+
+
 
 
 
