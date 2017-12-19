@@ -37,6 +37,8 @@ if (config.process.type === 'web') {
   require('./web')
 } else if (config.process.type === 'worker') {
   require('./worker')
+} else if (config.process.type === 'userauth') {
+  require('./user-authentication')
 } else {
   throw new Error(`${config.process.type} is an unsupported process type.`)
 }
