@@ -391,20 +391,22 @@ In this step you are going to create a new process called user-authentication. Y
 Follow this tutorial to install mongodb: [`tutorial on OS X`](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
 
 Useful mongoshell commands:
-  - show dbs -> list out all the dbs
-  - use dbName -> selects a db or creates one if not exists
-  - db.createCollection('nameOfCollection') -> creates a collection with the given name
-  - db.nameOfCollection.find({}) -> gives back all data from the selected collection
-  - db.nameOfCollection.remove({}) -> removes all data from collection
-  - show collections -> shows collections in the selected db
+```sh
+  > show dbs #list out all the dbs
+  > use dbName #selects a db or creates one if not exists
+  > db.createCollection('nameOfCollection') #creates a collection with the given name
+  > db.nameOfCollection.find({}) #gives back all data from the selected collection
+  > db.nameOfCollection.remove({}) #removes all data from collection
+  > show collections #shows collections in the selected db
+```
 
 Tasks:
   - [ ] Create a database called `risingstack-bootcamp`
     - To get the mongoshell type `mongo` in terminal.
     - If it's not available make sure it's running with `homebrew services ls`
     ```sh
-    $ use risingstack-bootcamp
-    $ db.createCollection('users')
+    > use risingstack-bootcamp
+    > db.createCollection('users')
     ```
     - You will work inside `models/mongodb`, use [Promises](http://mongoosejs.com/docs/promises.html)
       - Connect to mongodb inside `models/mongodb/mongo.js`, use `mongoose`
