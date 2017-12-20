@@ -388,7 +388,7 @@
 
 In this step you are going to create a new process called user-authentication. You will use MongoDB and koa-session.
 
-Follow this tutorial to install mongodb: [`mongo-mac`](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
+Follow this tutorial to install mongodb with homebrew: [`mongodb-homebrew`](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
 
 Useful mongoshell commands:
 ```sh

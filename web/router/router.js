@@ -7,16 +7,24 @@ const healthz = require('./healthz')
 const trigger = require('./trigger')
 const repository = require('./repository')
 const contribution = require('./contribution')
+const handlers = require('../handlers')
 
 const router = new Router()
 
 router
-  .use(bodyParser())
+  .use(bodyParser({
+    multipart: true,
+    urlencoded: true
+  }))
   .use(middleware.queryParser({ allowDots: true }))
 
 router.get('/hello', (ctx) => {
   ctx.body = 'Hello Node.js!'
 })
+
+router.post('/login', handlers.login)
+router.post('/registration', handlers.registration)
+router.post('/logout', handlers.logout)
 
 router.get('/healthz', healthz.get)
 
