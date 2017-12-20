@@ -4,9 +4,7 @@ const Koa = require('koa')
 const logger = require('winston')
 const middleware = require('./middleware')
 const router = require('./router')
-const path = require('path')
 const session = require('koa-session')
-
 
 const app = new Koa()
 

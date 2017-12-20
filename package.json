@@ -10,7 +10,7 @@
     "test-worker": "NODE_ENV=test PROCESS_TYPE=worker mocha 'worker/test.setup.js' 'worker/**/*.spec.js'",
     "test-models": "NODE_ENV=test mocha 'models/test.setup.js' 'models/**/*.spec.js'",
     "test-only": "npm run test-web && npm run test-worker && npm run test-models",
-    "test-userauth": "NODE_ENV=test PROCESS_TYPE=userauth mocha 'user-authentication/test.setup.js' user-authentication/handlers/*.spec.js",
+    "test-login": "NODE_ENV=test PROCESS_TYPE=web PORT=3001 mocha 'web/test.setup.js' 'web/handlers/login.spec.js'",
     "lint": "eslint .",
     "test": "npm run lint && npm run test-only",
     "migrate-db": "node ./scripts/migrate-db",
@@ -48,6 +48,7 @@
     "semver": "5.3.0",
     "sinon": "2.3.6",
     "sinon-chai": "2.11.0",
+    "supertest": "^3.0.0",
     "winston": "2.3.1"
   },
   "devDependencies": {
