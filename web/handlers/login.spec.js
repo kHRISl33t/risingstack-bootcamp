@@ -16,9 +16,9 @@ describe('/login', () => {
     email: 'user@user.us',
     password: 'user'
   }
-  it('should return a user', async function (done) {
+  it('should return a user', async () => {
     // this.timeout(15000)
-    const { body } = request(server.listen())
+    const { body } = await request(server.listen())
       .post(url)
       .body(userCreds)
       .expect(200)
@@ -26,7 +26,6 @@ describe('/login', () => {
       .end()
 
     expect(body).to.eql({ message: 'You are successfully logged in!' })
-    done()
     // const agent = await chai.request.agent(server.listen())
     // await agent
     //   .post(url)
