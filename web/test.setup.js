@@ -4,6 +4,7 @@ const sinon = require('sinon')
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 const winston = require('winston')
+const mongoose = require('mongoose')
 
 chai.use(sinonChai)
 
@@ -28,6 +29,22 @@ winston.addColors({
 winston.remove(winston.transports.Console)
 winston.add(winston.transports.Console, {
   level: process.env.LOGGER_LEVEL || 'test', colorize: true, prettyPrint: true
+})
+
+before(async () => {
+  await mongoose.createConnection(mongo)
+  await mongoose.connection
+    .then((res) => {
+      console.log('connected')
+      // console.log('connected')
+    })
+    .catch((err) => {
+      console.log('err', err)
+    })
+})
+
+after(async () => {
+  await mongoose.connection.close()
 })
 
 beforeEach(function beforeEach() {

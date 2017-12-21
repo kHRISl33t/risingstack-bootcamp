@@ -11,8 +11,8 @@ mongoose.Promise = Promise
 
 chai.use(chaiHttp)
 
-describe('/registration', () => {
-  const mongoUrl = process.env.mongouri
+const url = '/registration'
+describe(`${url}`, () => {
   let user
 
   const exampleUserObj = {
@@ -22,21 +22,12 @@ describe('/registration', () => {
   }
 
   before(async () => {
-    await mongoose.createConnection(mongoUrl)
-    await mongoose.connection
-      .then(() => {
-        // console.log('connected')
-      })
-      .catch((err) => {
-        console.log('err', err)
-      })
     user = new User(exampleUserObj)
     await user.save()
   })
 
   after(async () => {
     await user.remove(exampleUserObj)
-    await mongoose.connection.close()
   })
 
   it('should return with 200 after successfull registration', async function () {
@@ -51,7 +42,7 @@ describe('/registration', () => {
     }
 
     await agent
-      .post('/registration')
+      .post(url)
       .send(fakeRegData)
       .then((res) => {
         expect(res).to.have.status(200)
@@ -71,7 +62,7 @@ describe('/registration', () => {
     }
 
     await agent
-      .post('/registration')
+      .post(url)
       .send(fakeRegData)
       .then((res) => {
         expect(res).to.have.status(400)
@@ -90,7 +81,7 @@ describe('/registration', () => {
     const agent = await chai.request.agent(server.listen())
 
     await agent
-      .post('/registration')
+      .post(url)
       .send({})
       .then((res) => {
         expect(res).to.have.status(400)

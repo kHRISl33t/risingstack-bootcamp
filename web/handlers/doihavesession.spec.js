@@ -11,8 +11,8 @@ mongoose.Promise = Promise
 
 chai.use(chaiHttp)
 
-describe('/session', () => {
-  const mongoUrl = process.env.mongouri
+const url = '/session'
+describe(`${url}`, () => {
   let user
 
   const exampleUserObj = {
@@ -22,35 +22,25 @@ describe('/session', () => {
   }
 
   before(async () => {
-    await mongoose.createConnection(mongoUrl)
-    await mongoose.connection
-      .then((res) => {
-        console.log('connected')
-        // console.log('connected')
-      })
-      .catch((err) => {
-        console.log('err', err)
-      })
     user = new User(exampleUserObj)
     await user.save()
   })
 
   after(async () => {
     await user.remove(exampleUserObj)
-    await mongoose.connection.close()
   })
 
   it('should return with 401 when the user is not logged in', async () => {
     const agent = await chai.request.agent(server.listen())
     await agent
-      .get('/session')
+      .get(url)
       .catch((err) => {
         expect(err.response).to.have.status(401)
         // console.log(err.response.status)
       })
   })
 
-  it('should return with 200 when the user is logged and be able to view the secure page', async () => {
+  it('should return with 200 when the user is logged in and be able to view the secure page', async () => {
     const { email, password } = exampleUserObj
     const agent = await chai.request.agent(server.listen())
     await agent
@@ -63,7 +53,7 @@ describe('/session', () => {
         expect(res).to.have.status(200)
         expect(res.body).to.be.eql({ message: 'You are successfully logged in!' })
         // console.log(res.body)
-        return agent.get('/session')
+        return agent.get(url)
           .then((result) => {
             expect(result).to.have.status(200)
             // console.log(res.body)

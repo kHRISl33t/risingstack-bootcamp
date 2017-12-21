@@ -11,8 +11,8 @@ mongoose.Promise = Promise
 
 chai.use(chaiHttp)
 
-describe('/logout', () => {
-  const mongoUrl = process.env.mongouri
+const url = '/logout'
+describe(`${url}`, () => {
   let user
 
   const exampleUserObj = {
@@ -22,24 +22,15 @@ describe('/logout', () => {
   }
 
   before(async () => {
-    await mongoose.createConnection(mongoUrl)
-    await mongoose.connection
-      .then(() => {
-        // console.log('connected')
-      })
-      .catch((err) => {
-        console.log('err', err)
-      })
     user = new User(exampleUserObj)
     await user.save()
   })
 
   after(async () => {
     await user.remove(exampleUserObj)
-    await mongoose.connection.close()
   })
 
-  it('should return with 200 and log out a logged in user', async () => {
+  it('should return with 200 and logout a logged in user', async () => {
     const { email, password } = exampleUserObj
     const agent = await chai.request.agent(server.listen())
     await agent
@@ -52,7 +43,7 @@ describe('/logout', () => {
         expect(res).to.have.status(200)
         expect(res.body).to.be.eql({ message: 'You are successfully logged in!' })
 
-        return agent.get('/logout')
+        return agent.get(url)
           .then((result) => {
             expect(result).to.have.status(200)
             expect(result.body).to.be.eql({ message: 'A user logged out. exampleUser' })

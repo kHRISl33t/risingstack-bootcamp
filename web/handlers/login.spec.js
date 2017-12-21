@@ -11,8 +11,9 @@ mongoose.Promise = Promise
 
 chai.use(chaiHttp)
 
-describe('/login', () => {
-  const mongoUrl = process.env.mongouri
+const url = '/login'
+
+describe(`${url}`, () => {
   let user
 
   const exampleUserObj = {
@@ -22,29 +23,19 @@ describe('/login', () => {
   }
 
   before(async () => {
-    await mongoose.createConnection(mongoUrl)
-    await mongoose.connection
-      .then((res) => {
-        console.log('connected')
-        // console.log('connected')
-      })
-      .catch((err) => {
-        console.log('err', err)
-      })
     user = new User(exampleUserObj)
     await user.save()
   })
 
   after(async () => {
     await user.remove(exampleUserObj)
-    await mongoose.connection.close()
   })
 
   it('should return with 200 after successfull login', async () => {
     const { email, password } = exampleUserObj
     const agent = await chai.request.agent(server.listen())
     await agent
-      .post('/login')
+      .post(url)
       .send({
         email,
         password
@@ -59,7 +50,7 @@ describe('/login', () => {
     const agent = await chai.request.agent(server.listen())
 
     await agent
-      .post('/login')
+      .post(url)
       .send({
         email: 'email@email.com',
         password: 'password'
@@ -75,7 +66,7 @@ describe('/login', () => {
     const agent = await chai.request.agent(server.listen())
 
     await agent
-      .post('/login')
+      .post(url)
       .send({})
       .catch((err) => {
         expect(err.response.body).to.eql({ errors: { email: ['"email" is required'] } })
