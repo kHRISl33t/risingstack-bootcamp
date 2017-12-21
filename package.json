@@ -11,6 +11,10 @@
     "test-models": "NODE_ENV=test mocha 'models/test.setup.js' 'models/**/*.spec.js'",
     "test-only": "npm run test-web && npm run test-worker && npm run test-models",
     "test-login": "NODE_ENV=test PROCESS_TYPE=web PORT=3001 mocha 'web/test.setup.js' 'web/handlers/login.spec.js'",
+    "test-reg": "NODE_ENV=test PROCESS_TYPE=web PORT=3001 mocha 'web/test.setup.js' 'web/handlers/registration.spec.js'",
+    "test-sess": "NODE_ENV=test PROCESS_TYPE=web PORT=3001 mocha 'web/test.setup.js' 'web/handlers/doihavesession.spec.js'",
+    "test-logout": "NODE_ENV=test PROCESS_TYPE=web PORT=3001 mocha 'web/test.setup.js' 'web/handlers/logout.spec.js'",
+    "test-userauth": "NODE_ENV=test PROCESS_TYPE=web PORT=3001 mocha 'web/test.setup.js' 'web/handlers/*.spec.js'",
     "lint": "eslint .",
     "test": "npm run lint && npm run test-only",
     "migrate-db": "node ./scripts/migrate-db",
@@ -48,6 +52,7 @@
     "semver": "5.3.0",
     "sinon": "2.3.6",
     "sinon-chai": "2.11.0",
+    "superagent": "^3.8.2",
     "supertest": "^3.0.0",
     "winston": "2.3.1"
   },

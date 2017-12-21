@@ -4,6 +4,8 @@ const joi = require('joi')
 const logger = require('winston')
 const _ = require('lodash')
 const { User } = require('../../models/mongodb')
+const middleware = require('../middleware')
+const compose = require('koa-compose')
 
 // validation schema for login
 const loginValidationSchema = joi.object({
@@ -13,6 +15,7 @@ const loginValidationSchema = joi.object({
 
 async function loginHandler(ctx, next) {
   const loginCredentials = ctx.request.body
+  logger.info('logincred', loginCredentials)
   const { email, password } = loginCredentials
 
   try {
@@ -37,16 +40,24 @@ async function loginHandler(ctx, next) {
       })
 
       logger.info('/login - User:', ctx.session.username, 'just logged in')
+      ctx.status = 200
       ctx.body = { message: 'You are successfully logged in!' }
     } else {
+      ctx.status = 400
       ctx.body = { message: 'Bad password' }
       logger.warn('/login - Bad password')
     }
   } else {
+    ctx.status = 400
     ctx.body = { message: 'Entered e-mail not exists.' }
     logger.warn('/login - Entered e-mail not exists.')
   }
   await next()
 }
 
-module.exports = loginHandler
+module.exports = compose([
+  middleware.validator({
+    body: loginValidationSchema
+  }),
+  loginHandler
+])

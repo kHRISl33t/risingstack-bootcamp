@@ -4,11 +4,12 @@ const logger = require('winston')
 
 async function doIhaveSession(ctx) {
   if (ctx.session.username) {
-    ctx.body = '12'
-    logger.info('yee')
+    ctx.status = 200
+    ctx.body = { message: `Welcome ${ctx.session.username}` }
+    logger.info('you have session')
   } else {
-    logger.info('nooo:(')
-    ctx.body = '1'
+    ctx.status = 401
+    ctx.body = { message: 'Unauthorized acces - 401' }
   }
 }
 

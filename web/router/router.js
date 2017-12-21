@@ -24,7 +24,7 @@ router.get('/hello', (ctx) => {
 
 router.post('/login', handlers.login)
 router.post('/registration', handlers.registration)
-router.post('/logout', handlers.logout)
+router.get('/logout', handlers.logout)
 router.get('/session', handlers.doihavesession)
 
 router.get('/healthz', healthz.get)

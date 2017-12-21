@@ -3,6 +3,8 @@
 const joi = require('joi')
 const logger = require('winston')
 const { User } = require('../../models/mongodb')
+const middleware = require('../middleware')
+const compose = require('koa-compose')
 
 const registrationSchema = joi.object({
   username: joi.string().required(),
@@ -17,6 +19,8 @@ async function registrationHandler(ctx, next) {
   try {
     await joi.attempt(toValidate, registrationSchema)
   } catch (err) {
+    ctx.status = 400
+    ctx.body = { message: 'Validation Error', err }
     logger.error('/registration Validation Error -', err)
   }
 
@@ -25,6 +29,7 @@ async function registrationHandler(ctx, next) {
 
   if (isEmailAlreadyExists.length > 0 || isUsernameAlreadyExists > 0) {
     logger.warn('Entered username or E-mail address already exists.')
+    ctx.status = 400
     ctx.body = { message: 'Entered username or E-mail address already exists.' }
   } else {
     const user = new User({
@@ -35,10 +40,16 @@ async function registrationHandler(ctx, next) {
 
     await user.save()
 
+    ctx.status = 200
     ctx.body = { message: 'Successfully inserted a user.' }
     logger.info('Successfully created a new user')
   }
   await next()
 }
 
-module.exports = registrationHandler
+module.exports = compose([
+  middleware.validator({
+    body: registrationSchema
+  }),
+  registrationHandler
+])

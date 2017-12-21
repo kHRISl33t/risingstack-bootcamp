@@ -5,19 +5,22 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const _ = require('lodash')
 
-mongoose.promise = global.Promise
+mongoose.promise = Promise
 
 const { Schema } = mongoose
 
 const usersSchema = new Schema({
   username: {
-    type: String
+    type: String,
+    required: [true, 'why no username?']
   },
   email: {
-    type: String
+    type: String,
+    required: [true, 'why no email?']
   },
   password: {
-    type: String
+    type: String,
+    required: [true, 'why no secure?!']
   }
 })
 

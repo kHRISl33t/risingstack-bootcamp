@@ -13,6 +13,10 @@ const pw = process.env.PG_PASSWORD || ''
 const db = process.env.PG_DATABASE || 'risingstack_bootcamp'
 process.env.PG_URI = `postgres://${user}:${pw}@localhost:5432/${db}`
 
+// mongodb
+const mongo = process.env.mongouri || 'mongodb://localhost:27017/risingstack_bootcamp'
+process.env.mongouri = mongo
+
 // amqp
 process.env.REDIS_URI = 'redis://localhost'
 
