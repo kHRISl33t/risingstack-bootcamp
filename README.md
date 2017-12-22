@@ -134,7 +134,7 @@
   
   Notes:
   - Use `winston` for logging
-  - Create a `Personal Access Token` to be able to run 5000 query per hour, without that you are limited to 60 per hour. [github-api-ratelimiting](https://developer.github.com/v3/#rate-limiting)
+  - Create a `Personal Access Token` to be able to run 5000 query per hour, without that you are limited to 60 per hour. ([Github-api-ratelimiting](https://developer.github.com/v3/#rate-limiting))
     - Go to your GitHub Profile, click on `Edit Profile` -> `Developer Settings` -> `Personal Access Tokens` -> `Generate new token`
     - Place that token to the `models/github/api.js`
       ```js
@@ -415,7 +415,7 @@ Tasks:
     - To get the mongoshell type `mongo` in terminal.
     - If it's not available make sure it's running with `homebrew services ls`
     ```sh
-    > use risingstack-bootcamp
+    > use risingstack_bootcamp
     > db.createCollection('users')
     ```
     - Create a new model for monogdb
