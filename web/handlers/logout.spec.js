@@ -12,7 +12,7 @@ mongoose.Promise = Promise
 chai.use(chaiHttp)
 
 const url = '/logout'
-describe(`${url}`, () => {
+describe(`GET ${url}`, () => {
   let user
 
   const exampleUserObj = {

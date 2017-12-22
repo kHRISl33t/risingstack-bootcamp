@@ -34,8 +34,7 @@ winston.add(winston.transports.Console, {
 before(async () => {
   await mongoose.createConnection(mongo)
   await mongoose.connection
-    .then((res) => {
-      console.log('connected')
+    .then(() => {
       // console.log('connected')
     })
     .catch((err) => {

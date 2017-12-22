@@ -13,7 +13,7 @@ chai.use(chaiHttp)
 
 const url = '/login'
 
-describe(`${url}`, () => {
+describe(`POST ${url}`, () => {
   let user
 
   const exampleUserObj = {

@@ -134,6 +134,16 @@
   
   Notes:
   - Use `winston` for logging
+  - Create a `Personal Access Token` to be able to run 5000 query per hour, without that you are limited to 60 per hour. [github-api-ratelimiting](https://developer.github.com/v3/#rate-limiting)
+    - Go to your GitHub Profile, click on `Edit Profile` -> `Developer Settings` -> `Personal Access Tokens` -> `Generate new token`
+    - Place that token to the `models/github/api.js`
+      ```js
+        headers: {
+          ...
+          Authorization: 'token ...'
+          ...
+        }
+      ```
 
   Readings:
   - [Github API v3](https://developer.github.com/v3)
@@ -384,9 +394,9 @@
   - [Graceful shutdown](https://blog.risingstack.com/graceful-shutdown-node-js-kubernetes/)
   - [Health checks](http://microservices.io/patterns/observability/health-check-api.html)
 
-### 8. User authentication/registration and session creation
+### 8. User authentication with registration and sessions
 
-In this step you are going to create a new process called user-authentication. You will use MongoDB and koa-session.
+In this step you are going to make a user authentication and registration system for the web process with MongoDB and koa-session.
 
 Follow this tutorial to install mongodb with homebrew: [`mongodb-homebrew`](https://treehouse.github.io/installation-guides/mac/mongo-mac.html)
 
@@ -395,23 +405,23 @@ Useful mongoshell commands:
   > show dbs #list out all the dbs
   > use dbName #selects a db or creates one if not exists
   > db.createCollection('nameOfCollection') #creates a collection with the given name
-  > db.nameOfCollection.find({}) #gives back all data from the selected collection
-  > db.nameOfCollection.remove({}) #removes all data from collection
+  > db.nameOfCollection.find({}) #gives back all data from the selected collection (or gives back on by the email { email: user@host.com })
+  > db.nameOfCollection.remove({}) #removes all data from collection (or removes one by email address: { email: 'user@host.com' })
   > show collections #shows collections in the selected db
 ```
 
 Tasks:
-  - [ ] Create a database called `risingstack-bootcamp`
+  - [ ] Create a database called `risingstack_bootcamp`
     - To get the mongoshell type `mongo` in terminal.
     - If it's not available make sure it's running with `homebrew services ls`
     ```sh
     > use risingstack-bootcamp
     > db.createCollection('users')
     ```
-    - You will work inside `models/mongodb`
-      - Connect to mongodb inside `models/mongodb/mongo.js`, use `mongoose` with [Promises](http://mongoosejs.com/docs/promises.html)
+    - Create a new model for monogdb
+      - Create a connection and make sure it connects to the database, use `mongoose` with [Promises](http://mongoosejs.com/docs/promises.html)
       - Put the mongoUrl inside your .env file, don't use it in your code base
-      - Create the `usersSchema` in `models/mongodb/usersSchema.js` with the following fields:
+      - Create a `usersSchema` with the following fields:
         ```js
           username: string, 
           password: string, 
@@ -419,24 +429,41 @@ Tasks:
         ```
         - Use `bcrypt` to encrypt the password before insert `usersSchema.pre('save', ...)`
         - Create a method for password comparison `usersSchema.methods.comparePasswords = ...`
-  - [ ] Create an http server inside `user-authentication`
-    - Create a session with `koa-session`
-  - [ ] Create endpoints
-    - `GET and POST /login`
-    - `GET and POST /logout`
-    - `GET and POST /registration`
-  - [ ] Create handler functions to process the `POST` data for `login`, `logout` and `registration`
+  - [ ] Create a session with `koa-session`
+    - Handle 404 requests
+  - [ ] Create endpoints for
+    - `POST /registration`
+    - `POST /login`
+    - `GET /logout`
+    - `GET /session`
+  - [ ] Create handler functions for `login`, `registration`, `logout` and `session`
+    - Use joi for user input validation
+    - Use HTTP status codes
+    - Use the already implemented validator middleware with [koa-compose](https://github.com/koajs/compose) (use it just like you did in step6)
+  - [ ] Write unit tests for each function
+    - `registration`
+      - should register a user successfully with valid user input
+      - should not register with invalid e-mail address
+      - should not register with missing fields
+    - `login`
+      - should login a user successfully
+      - should not login a user with invalid email/password
+      - should not login when the fields are empty
+    - `logout`
+      - should logout a logged in user
+    - `session`
+      - should not be able to view the secure page if the user is not logged in
+      - should be able to view the secure page if the user is logged in
+    
 
 Notes: 
   - Use `winston` for logging
+  - Use `stubs` for testing when necessary
+  - Use [`curl`](https://curl.haxx.se/) for simulating user input and requests
+  - Post examples with [`curl`](https://gist.github.com/subfuzion/08c5d85437d5d4f00e58) 
 
 Readings:
   - [`bcrypt`](https://www.npmjs.com/package/bcrypt)
   - [`koa-session`](https://github.com/koajs/session)
   - [`mongoose`](http://mongoosejs.com/docs/)
-
-
-
-
-
-
+  - [`http-status-codes`](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)

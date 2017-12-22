@@ -12,7 +12,7 @@ mongoose.Promise = Promise
 chai.use(chaiHttp)
 
 const url = '/registration'
-describe(`${url}`, () => {
+describe(`POST ${url}`, () => {
   let user
 
   const exampleUserObj = {
@@ -75,7 +75,7 @@ describe(`${url}`, () => {
       })
   })
 
-  it('should return with 400 and not register when all fields is missing', async function () {
+  it('should return with 400 and not register when all fields are missing', async function () {
     this.sandbox.stub(User.prototype, 'save').resolves()
 
     const agent = await chai.request.agent(server.listen())
